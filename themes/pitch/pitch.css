@@ -1,0 +1,643 @@
+/* @theme pitch */
+/* author: enprod.fr */
+/* license: Commercial – single-user license */
+
+/* ============================================================
+   PITCH — A marketing-first Marp theme
+   Clean, bold, conversion-oriented.
+   Built for decks that need to sell, present, and convince.
+
+   SLIDE CLASSES:
+   - _class: cover        → Hero / title slide (gradient bg)
+   - _class: section      → Chapter divider (bold, centered)
+   - _class: stats        → Big numbers / KPI slide
+   - _class: quote        → Full-slide testimonial or pull quote
+   - _class: dark         → Inverted dark slide (accent bg)
+   - _class: image-right  → Text left, full-bleed image right
+   - _class: tinytext     → Smaller text for dense slides
+
+   IMAGE KEYWORDS:
+   - ![center](img.png)   → Centered image
+   - ![right](img.png)    → Float right
+   - ![rounded](img.png)  → Rounded corners with shadow
+   - ![logo](img.png)     → Small inline logo size
+
+   SPECIAL ELEMENTS:
+   - Use **bold** for key terms — renders in accent color
+   - Use `backticks` for tags / labels / badges
+   - Use > blockquote for highlighted callout boxes
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap");
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Backgrounds */
+  --bg:          #ffffff;
+  --bg-surface:  #f8f9fc;
+  --bg-muted:    #f1f4f9;
+
+  /* Text */
+  --text:        #0f172a;
+  --text-muted:  #475569;
+  --text-subtle: #94a3b8;
+
+  /* Accents */
+  --accent:      #6366f1;   /* indigo */
+  --accent-dark: #4f46e5;
+  --accent-warm: #f97316;   /* orange */
+  --accent-pink: #ec4899;
+  --accent-green:#10b981;
+
+  /* Borders */
+  --border:      #e2e8f0;
+  --border-dark: #cbd5e1;
+
+  /* Fonts */
+  --font-title:  Poppins, system-ui, sans-serif;
+  --font-body:   Inter, system-ui, sans-serif;
+}
+
+/* ============================================================
+   BASE SLIDE
+   ============================================================ */
+section {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+  padding: 2.8em 3.2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+}
+
+/* Bottom accent bar */
+section::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+}
+
+/* Slide number */
+section::after {
+  font-family: var(--font-body);
+  font-size: 0.6em;
+  color: var(--text-subtle);
+  content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  line-height: 1.2;
+  margin-bottom: 0.35em;
+}
+
+h1 {
+  font-size: 2.2em;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+p {
+  color: var(--text-muted);
+  font-size: 0.95em;
+  margin: 0.3em 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+/* Bold text gets accent color — great for key terms */
+strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+em {
+  color: var(--text);
+  font-style: italic;
+}
+
+/* Backtick text renders as a label/badge */
+code {
+  font-family: var(--font-body);
+  font-size: 0.78em;
+  font-weight: 600;
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--accent-dark);
+  padding: 0.15em 0.55em;
+  border-radius: 999px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  letter-spacing: 0.01em;
+}
+
+pre {
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1em 1.4em;
+  margin: 0.6em 0;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  color: var(--text);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82em;
+  font-weight: 400;
+}
+
+/* ============================================================
+   LISTS
+   ============================================================ */
+ul, ol {
+  padding-left: 1.3em;
+  margin: 0.3em 0;
+}
+
+li {
+  color: var(--text-muted);
+  margin: 0.25em 0;
+  font-size: 0.95em;
+  padding-left: 0.2em;
+}
+
+li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+ol li::marker {
+  color: var(--accent);
+  font-weight: 700;
+  font-family: var(--font-title);
+}
+
+li strong {
+  color: var(--text);
+}
+
+/* ============================================================
+   BLOCKQUOTE — Callout
+   ============================================================ */
+blockquote {
+  margin: 0.6em 0;
+  padding: 0.8em 1.2em;
+  background: rgba(99, 102, 241, 0.06);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+}
+
+blockquote p {
+  color: var(--text);
+  font-size: 0.9em;
+  margin: 0;
+}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+  margin: 0.6em 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead tr {
+  background: var(--accent);
+}
+
+th {
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.55em 0.9em;
+  font-size: 0.85em;
+  letter-spacing: 0.02em;
+}
+
+td {
+  padding: 0.45em 0.9em;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:nth-child(even) td {
+  background: var(--bg-surface);
+}
+
+/* ============================================================
+   MARK
+   ============================================================ */
+mark {
+  background: linear-gradient(120deg, rgba(249,115,22,0.2) 0%, rgba(249,115,22,0.15) 100%);
+  color: var(--accent-warm);
+  padding: 0.05em 0.25em;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   IMAGES
+   ============================================================ */
+img[alt~="center"] {
+  display: block;
+  margin: 0.5em auto;
+  border-radius: 10px;
+}
+
+img[alt~="right"] {
+  float: right;
+  margin: 0 0 0.5em 1.2em;
+  max-width: 42%;
+  border-radius: 10px;
+}
+
+img[alt~="rounded"] {
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.12);
+}
+
+img[alt~="logo"] {
+  display: inline;
+  height: 1.6em;
+  vertical-align: middle;
+  margin: 0 0.3em;
+}
+
+/* ============================================================
+   CLASS: cover — Hero / Title slide
+   ============================================================ */
+section.cover {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+  justify-content: center;
+  padding: 8% 10%;
+}
+
+section.cover::before {
+  display: none;
+}
+
+section.cover::after {
+  display: none;
+}
+
+/* Decorative top-right circle */
+section.cover .deco {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 45%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+section.cover h1 {
+  font-size: 3em;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 0.2em;
+}
+
+section.cover h2 {
+  font-size: 1.15em;
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0;
+  margin-bottom: 1.5em;
+}
+
+section.cover p {
+  font-size: 0.8em;
+  color: rgba(255,255,255,0.4);
+}
+
+section.cover strong {
+  color: var(--accent-warm);
+}
+
+/* Accent label above title */
+section.cover h3 {
+  font-size: 0.7em;
+  font-weight: 600;
+  color: var(--accent-warm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.8em;
+}
+
+/* ============================================================
+   CLASS: section — Chapter divider
+   ============================================================ */
+section.section {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--bg-surface);
+}
+
+section.section::before {
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+  height: 4px;
+  bottom: auto;
+  top: 0;
+}
+
+section.section h1 {
+  font-size: 2.6em;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  position: relative;
+}
+
+/* Underline accent on section title */
+section.section h1::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+  border-radius: 999px;
+  margin: 0.4em auto 0;
+}
+
+section.section h2 {
+  font-size: 1em;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+
+section.section::after {
+  display: none;
+}
+
+/* ============================================================
+   CLASS: stats — Big numbers / KPIs
+   ============================================================ */
+section.stats {
+  justify-content: center;
+  background: var(--bg);
+}
+
+section.stats h2 {
+  font-size: 1.1em;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 1em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75em;
+}
+
+/* Numbers: write them as h1 with label as p below */
+section.stats h1 {
+  font-size: 5em;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 0.05em;
+}
+
+section.stats p {
+  text-align: center;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+section.stats ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+
+section.stats li {
+  text-align: center;
+  padding: 0;
+  flex: 1;
+  min-width: 120px;
+}
+
+section.stats li::marker {
+  content: "";
+}
+
+section.stats li strong {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 2.8em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   CLASS: quote — Full-slide pull quote / testimonial
+   ============================================================ */
+section.quote {
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--bg);
+  padding: 7% 10%;
+}
+
+section.quote::before {
+  background: linear-gradient(90deg, var(--accent-pink), var(--accent));
+}
+
+section.quote blockquote {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  position: relative;
+  padding-left: 1.5em;
+}
+
+section.quote blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: -0.1em;
+  top: -0.3em;
+  font-family: var(--font-title);
+  font-size: 5em;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  opacity: 0.25;
+}
+
+section.quote blockquote p {
+  font-family: var(--font-title);
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 0.6em;
+}
+
+/* Attribution: write it as a paragraph after the blockquote */
+section.quote > p {
+  font-size: 0.8em;
+  color: var(--text-muted);
+  margin-top: 0.5em;
+}
+
+section.quote > p strong {
+  color: var(--text);
+}
+
+/* ============================================================
+   CLASS: dark — Inverted dark slide
+   ============================================================ */
+section.dark {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+section.dark h1,
+section.dark h2 {
+  color: #f8fafc;
+}
+
+section.dark h3 {
+  color: var(--accent-warm);
+}
+
+section.dark p,
+section.dark li {
+  color: #94a3b8;
+}
+
+section.dark li::marker {
+  color: var(--accent-warm);
+}
+
+section.dark strong {
+  color: var(--accent-warm);
+}
+
+section.dark blockquote {
+  background: rgba(255,255,255,0.05);
+  border-left-color: var(--accent-warm);
+}
+
+section.dark blockquote p {
+  color: #cbd5e1;
+}
+
+section.dark code {
+  background: rgba(255,255,255,0.1);
+  color: #f97316;
+  border-color: rgba(255,255,255,0.15);
+}
+
+section.dark table thead tr {
+  background: var(--accent-warm);
+}
+
+section.dark td {
+  color: #94a3b8;
+  border-color: rgba(255,255,255,0.08);
+}
+
+section.dark tr:nth-child(even) td {
+  background: rgba(255,255,255,0.04);
+}
+
+section.dark::before {
+  background: linear-gradient(90deg, var(--accent-warm), var(--accent-pink));
+}
+
+section.dark::after {
+  color: #334155;
+}
+
+/* ============================================================
+   CLASS: tinytext — Fit more content
+   ============================================================ */
+section.tinytext > p,
+section.tinytext > ul,
+section.tinytext > ol,
+section.tinytext > blockquote,
+section.tinytext > table {
+  font-size: 0.65em;
+}
+
+/* ============================================================
+   HEADER / FOOTER
+   ============================================================ */
+header {
+  font-family: var(--font-body);
+  font-size: 0.62em;
+  color: var(--text-subtle);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+footer {
+  font-family: var(--font-body);
+  font-size: 0.62em;
+  color: var(--text-subtle);
+}

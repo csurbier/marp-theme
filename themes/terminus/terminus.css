@@ -1,0 +1,593 @@
+/* @theme terminus */
+/* author: enprod.fr */
+/* license: Commercial – single-user license */
+
+/* ============================================================
+   TERMINUS — A developer-first Marp theme
+   Inspired by GitHub Dark, VS Code, and terminal aesthetics.
+
+   SLIDE CLASSES (use in front-matter or per-slide directives):
+   - _class: cover        → Title / hero slide
+   - _class: section      → Chapter divider
+   - _class: terminal     → Full dark terminal look
+   - _class: light        → Light variant of any slide
+   - _class: split        → 2-column layout via blockquote trick
+   - _class: tinytext     → Shrink text to fit more content
+   - _class: center       → Center all content vertically
+
+   IMAGE KEYWORDS:
+   - ![center](img.png)   → Centered image
+   - ![right](img.png)    → Float image to the right
+   - ![badge](img.png)    → Inline badge-size image
+
+   SPECIAL MARKDOWN:
+   - > [!NOTE] text       → Callout box (note)
+   - > [!WARN] text       → Callout box (warning)
+   - > [!TIP] text        → Callout box (tip)
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Core palette */
+  --bg:          #0d1117;
+  --bg-surface:  #161b22;
+  --bg-elevated: #1f2428;
+  --border:      #30363d;
+  --border-muted:#21262d;
+
+  /* Text */
+  --text:        #e6edf3;
+  --text-muted:  #8b949e;
+  --text-subtle: #6e7681;
+
+  /* Accents */
+  --accent:      #58a6ff;
+  --accent-alt:  #3fb950;
+  --accent-warn: #d29922;
+  --accent-danger:#f85149;
+  --accent-purple:#bc8cff;
+
+  /* Fonts */
+  --font-body:  Inter, system-ui, -apple-system, sans-serif;
+  --font-mono:  "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+}
+
+/* ============================================================
+   BASE SLIDE
+   ============================================================ */
+section {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.65;
+  padding: 2.5em 3em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  /* Subtle grid background */
+  background-image:
+    linear-gradient(var(--border-muted) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-muted) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+}
+
+/* Top accent line */
+section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+}
+
+/* Slide number */
+section::after {
+  font-family: var(--font-mono);
+  font-size: 0.62em;
+  color: var(--text-subtle);
+  content: attr(data-marpit-pagination) " / " attr(data-marpit-pagination-total);
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.4em;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.2em;
+  margin-bottom: 0.6em;
+}
+
+h3 {
+  font-size: 1.15em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+p {
+  color: var(--text);
+  margin: 0.4em 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(88, 166, 255, 0.3);
+}
+
+a:hover {
+  border-bottom-color: var(--accent);
+}
+
+strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+em {
+  color: var(--accent-purple);
+  font-style: italic;
+}
+
+/* ============================================================
+   LISTS
+   ============================================================ */
+ul, ol {
+  padding-left: 1.4em;
+  margin: 0.3em 0;
+}
+
+li {
+  margin: 0.2em 0;
+  color: var(--text);
+}
+
+li::marker {
+  color: var(--accent);
+}
+
+ol li::marker {
+  color: var(--accent-alt);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  font-weight: 700;
+}
+
+/* Nested lists */
+li ul li::marker,
+li ol li::marker {
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   CODE BLOCKS
+   ============================================================ */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background-color: var(--bg-surface);
+  color: var(--accent-alt);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+pre {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 1em 1.2em;
+  overflow: auto;
+  position: relative;
+  margin: 0.6em 0;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text);
+  font-size: 0.82em;
+  line-height: 1.6;
+}
+
+/* Syntax highlight overrides for common highlighters */
+pre .hljs-keyword,
+pre .token.keyword     { color: #ff7b72; }
+pre .hljs-string,
+pre .token.string      { color: #a5d6ff; }
+pre .hljs-comment,
+pre .token.comment     { color: var(--text-subtle); font-style: italic; }
+pre .hljs-number,
+pre .token.number      { color: #79c0ff; }
+pre .hljs-function,
+pre .token.function    { color: #d2a8ff; }
+pre .hljs-built_in,
+pre .token.builtin     { color: var(--accent-alt); }
+
+/* ============================================================
+   BLOCKQUOTE — Callout-style
+   ============================================================ */
+blockquote {
+  margin: 0.6em 0;
+  padding: 0.6em 1em;
+  background: var(--bg-surface);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  color: var(--text-muted);
+}
+
+blockquote p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* [!NOTE] callout */
+blockquote p:first-child strong:first-child {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(88, 166, 255, 0.12);
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  margin-right: 0.4em;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+  font-family: var(--font-mono);
+  margin: 0.6em 0;
+}
+
+thead tr {
+  background: var(--bg-surface);
+  border-bottom: 2px solid var(--accent);
+}
+
+th {
+  color: var(--accent);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5em 0.8em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.78em;
+}
+
+td {
+  padding: 0.4em 0.8em;
+  border-bottom: 1px solid var(--border-muted);
+  color: var(--text);
+}
+
+tr:nth-child(even) td {
+  background: rgba(255,255,255,0.02);
+}
+
+/* ============================================================
+   MARK / HIGHLIGHT
+   ============================================================ */
+mark {
+  background-color: rgba(210, 153, 34, 0.25);
+  color: var(--accent-warn);
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+  border: 1px solid rgba(210, 153, 34, 0.4);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* ============================================================
+   IMAGES
+   ============================================================ */
+img[alt~="center"] {
+  display: block;
+  margin: 0.5em auto;
+  border-radius: 6px;
+}
+
+img[alt~="right"] {
+  float: right;
+  margin: 0 0 0.5em 1em;
+  border-radius: 6px;
+  max-width: 45%;
+}
+
+img[alt~="badge"] {
+  display: inline;
+  height: 1.4em;
+  vertical-align: middle;
+  margin: 0 0.2em;
+  border-radius: 3px;
+}
+
+img[alt~="rounded"] {
+  border-radius: 12px;
+  border: 2px solid var(--border);
+}
+
+/* ============================================================
+   CLASS: cover — Hero / Title slide
+   ============================================================ */
+section.cover {
+  justify-content: center;
+  align-items: flex-start;
+  background-image:
+    radial-gradient(ellipse at 70% 50%, rgba(88, 166, 255, 0.08) 0%, transparent 60%),
+    linear-gradient(var(--border-muted) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-muted) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+section.cover::before {
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt), var(--accent-purple));
+}
+
+section.cover h1 {
+  font-size: 2.8em;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.2em;
+}
+
+section.cover h2 {
+  font-size: 1.1em;
+  font-weight: 400;
+  color: var(--text-muted);
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-text-fill-color: unset;
+  margin-bottom: 1.5em;
+}
+
+section.cover p {
+  font-size: 0.85em;
+  color: var(--text-subtle);
+  font-family: var(--font-mono);
+}
+
+section.cover p strong {
+  color: var(--accent-alt);
+}
+
+/* ============================================================
+   CLASS: section — Chapter divider
+   ============================================================ */
+section.section {
+  justify-content: center;
+  align-items: flex-start;
+  background-image:
+    linear-gradient(135deg, var(--bg-surface) 0%, var(--bg) 100%);
+}
+
+section.section::before {
+  height: 100%;
+  width: 4px;
+  top: 0;
+  left: 0;
+  right: auto;
+  background: linear-gradient(180deg, var(--accent), var(--accent-alt));
+}
+
+section.section h1 {
+  font-size: 2.4em;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+section.section h2 {
+  font-size: 1em;
+  color: var(--text-muted);
+  border: none;
+  padding: 0;
+  font-weight: 400;
+  font-family: var(--font-mono);
+}
+
+section.section::after {
+  display: none;
+}
+
+/* ============================================================
+   CLASS: terminal — Full terminal look
+   ============================================================ */
+section.terminal {
+  background-color: #010409;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.03) 0px,
+      rgba(0,0,0,0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  font-family: var(--font-mono);
+}
+
+section.terminal::before {
+  background: var(--accent-alt);
+  height: 2px;
+}
+
+section.terminal h1 {
+  font-family: var(--font-mono);
+  color: var(--accent-alt);
+  font-size: 1.4em;
+  font-weight: 500;
+}
+
+section.terminal h1::before {
+  content: "$ ";
+  color: var(--text-subtle);
+  font-weight: 400;
+}
+
+section.terminal h2 {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 1em;
+  border: none;
+  padding: 0;
+  font-weight: 400;
+}
+
+section.terminal h2::before {
+  content: "# ";
+  color: var(--text-subtle);
+}
+
+section.terminal p,
+section.terminal li {
+  font-size: 0.85em;
+  color: var(--accent-alt);
+}
+
+section.terminal li::marker {
+  content: "> ";
+  font-family: var(--font-mono);
+  color: var(--text-subtle);
+}
+
+/* ============================================================
+   CLASS: light — Light variant
+   ============================================================ */
+section.light {
+  --bg:          #ffffff;
+  --bg-surface:  #f6f8fa;
+  --bg-elevated: #eaeef2;
+  --border:      #d0d7de;
+  --border-muted:#e1e4e8;
+  --text:        #1f2328;
+  --text-muted:  #656d76;
+  --text-subtle: #9198a1;
+  --accent:      #0969da;
+  --accent-alt:  #1a7f37;
+  --accent-warn: #9a6700;
+  --accent-danger:#d1242f;
+  --accent-purple:#8250df;
+  background-image:
+    linear-gradient(var(--border-muted) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-muted) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+section.light pre {
+  background-color: var(--bg-surface) !important;
+}
+
+section.light code {
+  background-color: var(--bg-surface);
+  color: var(--accent-alt);
+}
+
+/* ============================================================
+   CLASS: center — Vertically center all content
+   ============================================================ */
+section.center {
+  justify-content: center;
+  text-align: center;
+}
+
+section.center ul,
+section.center ol {
+  text-align: left;
+  display: inline-block;
+}
+
+/* ============================================================
+   CLASS: tinytext — Fit more content on a slide
+   ============================================================ */
+section.tinytext > p,
+section.tinytext > ul,
+section.tinytext > ol,
+section.tinytext > blockquote,
+section.tinytext > pre {
+  font-size: 0.65em;
+}
+
+/* ============================================================
+   CLASS: split — Two-column layout
+   Use a blockquote as the right column:
+   Left content here
+   > Right column content here
+   ============================================================ */
+section.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 2em;
+}
+
+section.split h1,
+section.split h2 {
+  grid-column: 1 / -1;
+}
+
+section.split blockquote {
+  border-left: none;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 0.6em 0;
+  margin: 0;
+}
+
+/* ============================================================
+   FOOTER / HEADER overrides
+   ============================================================ */
+header {
+  font-family: var(--font-mono);
+  font-size: 0.65em;
+  color: var(--text-subtle);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+footer {
+  font-family: var(--font-mono);
+  font-size: 0.65em;
+  color: var(--text-subtle);
+}
